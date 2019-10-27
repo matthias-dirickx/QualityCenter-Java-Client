@@ -56,6 +56,15 @@ The logic of first posting the run, retrieving the id and using that to update a
 It is the goal to abstract away some cumbersome operations when working with these items.
 
 # Example
+<code>
+new QcRunAndRunSteps(
+                new QcRun()
+                        .setField(QcRunField.RUN_NAME, "the run name")
+                        .setField(QcRunField.EXECUTION_DATE, "2019-10-27")
+        )
+                .addStep(new QcRunStep().setField(QcRunStepField.DESCRIPTION, "the description of the step"))
+                .commit();
+</code>
 # Supported Actions
 The API is written with automated test execution in mind.
 
