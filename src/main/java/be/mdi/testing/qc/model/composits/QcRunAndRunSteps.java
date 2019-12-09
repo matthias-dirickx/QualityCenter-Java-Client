@@ -68,8 +68,26 @@ public class QcRunAndRunSteps implements QcCommitable {
         return this;
     }
 
+    public QcRunAndRunSteps setProject(String name) {
+        qcRun.setProject(name);
+        qcRunSteps.setProject(name);
+        return this;
+    }
+
+    public QcRunAndRunSteps setDomain(String name) {
+        qcRun.setDomain(name);
+        qcRunSteps.setDomain(name);
+        return this;
+    }
+
     public void commit() {
+        String status = "Not Completed";
+        if(qcRun.getField(QcRunField.STATUS) != null) {
+            status = qcRun.getField(QcRunField.STATUS);
+        }
         qcRun = getQcClient().postEntity(QcRun.class, qcRun);
+        qcRun.setField(QcRunField.STATUS, status);
+        getQcClient().putEntity(qcRun);
         String id = qcRun.getField(QcRunField.ID);
         qcRunSteps.setRunId(id);
         qcRunSteps = getQcClient().postEntities(QcRunSteps.class, qcRunSteps);

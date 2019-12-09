@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Entities")
-public class QcRunSteps extends QcEntities implements QcEntitiesInterface<QcRunStep>{
+public class QcRunSteps extends QcEntities implements QcEntitiesInterface<QcRunStep, QcRunSteps>{
 
     @XmlElement(name = "Entity")
     protected List<QcRunStep> entities;
@@ -44,8 +44,9 @@ public class QcRunSteps extends QcEntities implements QcEntitiesInterface<QcRunS
         return rs;
     }
 
-    public void add(QcRunStep e) {
+    public QcRunSteps add(QcRunStep e) {
         entities.add(e);
+        return this;
     }
 
     /**

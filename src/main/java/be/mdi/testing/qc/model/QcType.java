@@ -18,6 +18,7 @@
  */
 package be.mdi.testing.qc.model;
 
+import be.mdi.testing.qc.model.entities.QcAttachment;
 import be.mdi.testing.qc.model.entities.QcDefect;
 import be.mdi.testing.qc.model.entities.QcRun;
 import be.mdi.testing.qc.model.entities.QcRunStep;
@@ -25,6 +26,7 @@ import be.mdi.testing.qc.model.fields.QcRunStepField;
 
 public enum QcType {
 
+    ATTACHMENT("attachment", "CROS_REF", "attachments", null, null, QcAttachment.class),
     BUG("defect", "BUG", "defects", null, null, QcDefect.class),
     DEFECT("defect", "BUG", "defects", null, null, QcDefect.class),
     RUN("run", "RUN", "runs", null, null, QcRun.class),

@@ -16,9 +16,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package be.mdi.testing.qc.model.entities;
+package be.mdi.testing.qc.model.fields;
 
-public interface QcEntitiesInterface<T extends QcEntity, U> {
-    T get(int index);
-    U add(T e);
+public enum QcAttachmentField {
+
+    REF_SUBTYPE("ref-subtype"),
+    VC_USER_NAME("vc-user-name"),
+    ID("id"),
+    PARENT_ID("parent-id"),
+    LAST_MODIFIED("last-modified"),
+    REF_CKOUT_PATH("ref-ckout-path"),
+    DESCRIPTION("description"),
+    VC_CUR_VER("vc-cur-ver"),
+    NAME("name"),
+    REF_TYPE("ref-type"),
+    PARENT_TYPE("parent-type"),
+    FILE_SIZE("file-size");
+
+    private String name;
+
+    QcAttachmentField(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

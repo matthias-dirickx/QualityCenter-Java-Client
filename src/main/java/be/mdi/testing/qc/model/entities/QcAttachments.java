@@ -26,25 +26,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "Entities")
-public class QcRuns extends QcEntities implements QcEntitiesInterface<QcRun, QcRuns> {
+public class QcAttachments extends QcEntities implements QcEntitiesInterface<QcAttachment, QcAttachments> {
 
     @XmlElement(name = "Entity")
-    protected List<QcRun> entities;
+    protected List<QcAttachment> entities;
 
-    public QcRuns() {
-        super(QcType.RUN);
-        entities = new ArrayList<QcRun>();
+    public QcAttachments()  {
+        super(QcType.DEFECT);
+        entities = new ArrayList<>();
     }
 
-    public QcRun get(int index) {
-        QcRun r = entities.get(index);
-        r.setDomain(getDomain());
-        r.setProject(getProject());
-        return r;
+    public QcAttachment get(int index) {
+        QcAttachment a = entities.get(index);
+        a.setDomain(getDomain());
+        a.setProject(getProject());
+        return a;
     }
 
-    public QcRuns add(QcRun e) {
-        entities.add(e);
+    public QcAttachments add(QcAttachment a) {
+        entities.add(a);
         return this;
     }
 }

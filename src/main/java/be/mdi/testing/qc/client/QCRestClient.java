@@ -197,4 +197,13 @@ public class QCRestClient {
                 runId
         );
     }
+
+    public void postAttachment(QcAttachment qcAttachment) {
+        /*
+        Special case.
+        If this contains a file, then post the file and post the xml as an update for the meta.
+        If this contains no file, then put as regular xml entity. It must have an ID!
+         */
+
+    }
 }

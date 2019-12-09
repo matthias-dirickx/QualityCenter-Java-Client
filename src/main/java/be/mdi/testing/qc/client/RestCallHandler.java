@@ -18,6 +18,7 @@
  */
 package be.mdi.testing.qc.client;
 
+import be.mdi.testing.qc.model.entities.QcAttachment;
 import be.mdi.testing.qc.model.entities.QcEntities;
 import be.mdi.testing.qc.model.entities.QcEntity;
 import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
@@ -25,6 +26,7 @@ import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 
 class RestCallHandler {
 
@@ -79,6 +81,14 @@ class RestCallHandler {
                         Entity.entity(qcEntity, MediaType.APPLICATION_XML_TYPE)
                 )
                 .readEntity(retType);
+    }
+
+    QcAttachment postAttachment(InputStream inputStream, String fileName, String restUrl) {
+        Invocation.Builder invocationBuilder = buildRestRequest(restUrl);
+        invocationBuilder.header("Slug", fileName);
+        return invocationBuilder
+                .post(Entity.entity(inputStream, MediaType.APPLICATION_OCTET_STREAM_TYPE))
+                .readEntity(QcAttachment.class);
     }
 
     void login() {
