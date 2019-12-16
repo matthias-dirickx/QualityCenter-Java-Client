@@ -19,6 +19,7 @@
 import be.mdi.testing.qc.client.QCRestClient;
 import be.mdi.testing.qc.model.QcType;
 import be.mdi.testing.qc.model.entities.QcRun;
+import be.mdi.testing.qc.model.entities.QcRuns;
 import be.mdi.testing.qc.model.fields.QcRunField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -110,5 +111,44 @@ public class QcRunTest extends BaseMockTest {
         assert qcRun.getProject().equals("theProject");
         assert qcRun.getDomain().equals("theDomain");
         Assertions.assertEquals(QcType.RUN, qcRun.getQcType());
+    }
+
+    @Test
+    public void theClientCanReturnMultipleRunItemsInAQcRunsObject() {
+        mockServer
+                .when(request("/qcbin/rest/domains/theDomain/projects/theProject/runs"))
+                .respond(response()
+                        .withHeader("Content-Type", "application/xml")
+                        .withCookie("some-cookie", "to avoid default")
+                        .withBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                                "<Entities>\n" +
+                                "<Entity Type=\"run\">\n" +
+                                "    <Fields>\n" +
+                                "        <Field Name=\"run-name\">\n" +
+                                "            <Value>the description</Value>\n" +
+                                "        </Field>\n" +
+                                "        <Field Name=\"execution-date\">\n" +
+                                "            <Value>2019-07-20</Value>\n" +
+                                "        </Field>\n" +
+                                "    </Fields>\n" +
+                                "</Entity>\n" +
+                                "<Entity Type=\"run\">\n" +
+                                "    <Fields>\n" +
+                                "        <Field Name=\"run-name\">\n" +
+                                "            <Value>the description 2</Value>\n" +
+                                "        </Field>\n" +
+                                "        <Field Name=\"execution-date\">\n" +
+                                "            <Value>2019-07-20</Value>\n" +
+                                "        </Field>\n" +
+                                "    </Fields>\n" +
+                                "</Entity>\n" +
+                                "</Entities>\n"));
+
+        QCRestClient qcc = new QCRestClient("http://127.0.0.1:1080", "abc", "def");
+
+        QcRuns qcRuns = qcc.getRuns("theDomain", "theProject");
+
+        Assertions.assertEquals(qcRuns.get(0).getField(QcRunField.RUN_NAME), "the description");
+        Assertions.assertEquals(qcRuns.get(1).getField(QcRunField.RUN_NAME), "the description 2");
     }
 }

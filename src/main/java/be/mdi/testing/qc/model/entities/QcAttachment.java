@@ -40,6 +40,9 @@ public class QcAttachment extends QcEntity {
 
     private InputStream attachmentInputStream;
 
+    @XmlTransient
+    private String fileName;
+
     public QcAttachment() {
         super(QcType.ATTACHMENT);
     }
@@ -73,11 +76,15 @@ public class QcAttachment extends QcEntity {
         return this;
     }
 
+    public String getFileName() {
+        return this.fileName;
+    }
+
     public InputStream getAttachmentInputStream() { return attachmentInputStream; }
 
-    @XmlTransient
-    public void setAttachmentInputStream(InputStream attachmentInputStream) {
+    public void setAttachmentInputStream(InputStream attachmentInputStream, String fileName) {
         this.attachmentInputStream = attachmentInputStream;
+        this.fileName = fileName;
     }
 
     public QcAttachment setParent(QcType parentType, String parentIdentifier) {

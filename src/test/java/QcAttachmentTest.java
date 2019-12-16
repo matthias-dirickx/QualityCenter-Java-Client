@@ -54,7 +54,7 @@ public class QcAttachmentTest {
                         .setField(QcAttachmentField.DESCRIPTION, "a description with spaces and &é\"\'(§!èçà)-\')")
                         .setField(QcAttachmentField.NAME, "The Name");
 
-        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"));
+        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"), "Atomium.JPG");
 
         InputStream testIs = qcAttachment.getAttachmentInputStream();
 
@@ -82,7 +82,7 @@ public class QcAttachmentTest {
                 false
         );
 
-        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"));
+        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"), "Atomium.JPG");
 
         Assertions.assertEquals(
                 qcAttachment.hasFile(),
@@ -95,7 +95,7 @@ public class QcAttachmentTest {
                 new QcAttachment()
                         .setField(QcAttachmentField.DESCRIPTION, "a description with spaces and &é\"\'(§!èçà)-\')")
                         .setField(QcAttachmentField.NAME, "The Name");
-        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"));
+        qcAttachment.setAttachmentInputStream(this.getClass().getResourceAsStream("Atomium1.JPG"), "Atomium.JPG");
 
         Assertions.assertEquals(
                 qcAttachment.getField(QcAttachmentField.DESCRIPTION),
@@ -127,6 +127,8 @@ public class QcAttachmentTest {
                         "</Entity>\n",
                 sw.toString()
         );
+
+        Assertions.assertEquals("Atomium.JPG", qcAttachment.getFileName());
     }
 
     @Test

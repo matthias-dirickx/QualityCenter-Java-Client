@@ -40,7 +40,6 @@ public class StaticQCRestClient {
                 }
             }
         }
-
         return staticQcRestClient.qcc;
     }
 }

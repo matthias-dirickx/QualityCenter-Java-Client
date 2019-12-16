@@ -91,6 +91,14 @@ class RestCallHandler {
                 .readEntity(QcAttachment.class);
     }
 
+    QcAttachment putAttachment(InputStream inputStream, String fileName, String restUrl) {
+        Invocation.Builder invocationbuilder = buildRestRequest(restUrl);
+        invocationbuilder.header("Slug", fileName);
+        return invocationbuilder
+                .put(Entity.entity(inputStream, MediaType.APPLICATION_OCTET_STREAM_TYPE))
+                .readEntity(QcAttachment.class);
+    }
+
     void login() {
         Client client = ClientBuilder.newClient();
         client.register(new HttpBasicAuthFilter(username, password));
